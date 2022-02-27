@@ -15,10 +15,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(RolesTableSeeder::class);
-        $this->call(AdminUserSeeder::class);
-        Author::factory(10)->create();
-        Book::factory(20)->create();
+        // $this->call(RolesTableSeeder::class);
+        // $this->call(AdminUserSeeder::class);
+        // Author::factory(10)->create();
+        // Book::factory(20)->create();
+        $this->call([
+            RolesTableSeeder::class,
+            AdminUserSeeder::class,
+            AuthorSeeder::class,
+            CategorySeeder::class,
+            BookSSeeder::class
+        ]);
         
     }
 }

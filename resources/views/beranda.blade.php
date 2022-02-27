@@ -66,11 +66,11 @@
                                         <div class="dropdown-menu dropdown-menu-animation dropdown-sm p-2 border-radius-lg mt-0 mt-lg-2"
                                             aria-labelledby="dropdownMenuPages">
                                             <div class="d-none d-lg-block">
-                                                <a href="./pages/about-us.html" class="dropdown-item border-radius-md">
+                                                <a href="{{ route('home') }}" class="dropdown-item border-radius-md">
                                                     <span class="ps-3">Profile</span></a>
                                                 <a class="dropdown-item border-radius-md" href="{{ route('logout') }}"
                                                     onclick="event.preventDefault();
-                                                                                                                            document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        document.getElementById('logout-form').submit();">
                                                     <span class="ps-3">Keluar</span>
                                                 </a>
                                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
@@ -123,8 +123,38 @@
         <div class="container">
             <div class="col-12 mt-4">
                 <div class="card mb-4">
-                    <div class="card-header pb-0 p-3">
-                        <h6 class="mb-1">BUKU</h6>
+                    <div class="card-header text-center pb-0 p-3">
+                        <h4 class="mb-3">Daftar Buku Programmer</h4>
+                        <div class="row">
+                            <form action="{{ route('search') }}">
+                                <div class="col-md-6 mx-auto">
+                                    <div class="form-group ">
+                                        <div class="input-group input-group-alternative mb-4">
+                                            <input class="form-control" placeholder="Pencarian Buku" name="search"
+                                                type="text">
+                                            <button type="submit" class="input-group-text btn-primary"><i
+                                                    class="ni ni-search"></i>Cari</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="mb-2 px-4 ">
+
+                        </div>
+                        <div class="row d-flex justify-content-center">
+                            @foreach ($categories as $category)
+                                <div class="col-2">
+                                    <div class="card card-blog card-plain">
+                                        <div class="card-body  px-1 pb-0">
+                                            <a href="{{ route('category', $category->slug) }}">
+                                                <h6>{{ $category->name }}</h6>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                     <div class="card-body p-3">
                         <div class="row">
@@ -132,7 +162,8 @@
                                 <div class="col-xl-3 col-md-6 mb-xl-0 mt-4 mb-5">
                                     <div class="card card-blog card-plain">
                                         <div class="position-relative">
-                                            <a class="d-block shadow-xl border-radius-xl">
+                                            <a href="{{ route('buku', $item) }}"
+                                                class="d-block shadow-xl border-radius-xl">
                                                 <img src="{{ Storage::url($item->cover) }}" alt="img-blur-shadow"
                                                     class="img-fluid shadow border-radius-xl">
                                             </a>
@@ -155,9 +186,12 @@
                                     </div>
                                 </div>
                             @endforeach
+                            <div class="col-12 mt-6 d-flex justify-content-center">
+                                {{ $buku->links() }}
+                            </div>
                         </div>
                     </div>
-                    {{ $buku->links('vendor.pagination.simple-bootstrap-4') }}
+
                 </div>
             </div>
         </div>

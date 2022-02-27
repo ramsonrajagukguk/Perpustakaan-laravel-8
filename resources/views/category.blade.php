@@ -58,7 +58,7 @@
                                     <li class="nav-item my-auto ms-3 ms-lg-0">
                                         <a class="btn btn-sm  bg-gradient-primary  btn-round" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                            document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                        document.getElementById('logout-form').submit();">
                                             {{ __('Logout') }}
                                         </a>
 
@@ -107,77 +107,26 @@
             </div>
         </div>
     </header>
-    <!-- START Testimonials w/ user image & text & info -->
-    <section class="py-sm-2 py-2 position-relative">
-        <div class="container">
-            <div class="row">
-                <div class="mb-2 w-25">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ url('/') }}">Beranda</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('categories') }}">Category</a></li>
-                            <li class="breadcrumb-item active" aria-current="page"><a
-                                    href="{{ route('category', $book->category->slug) }}">{{ $book->category->name }}</a>
-                            </li>
-                        </ol>
-                    </nav>
-                </div>
-                <div class="col-12 mx-auto">
-                    <div class="row py-lg-3 p-2">
-                        <div class="col-lg-3 col-md-5 position-relative my-auto">
-                            <img class="img border-radius-lg max-width-400 w-100 position-relative z-index-2"
-                                src="{{ Storage::url($book->cover) }}" alt="bruce">
-                        </div>
-                        <div class="col-lg-7 col-md-7 z-index-2 position-relative px-md-2 px-sm-5 mt-sm-0 mt-4">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <h4 class="mb-0">{{ $book->judul }}</h4>
-                                <div class="d-block">
-                                    <form action="{{ route('buku.pinjam', $book) }}" method="POST">
-                                        @csrf
-                                        <button type="Submit"
-                                            class="btn btn-sm btn-outline-info text-nowrap mb-0">Pinjam</button>
-                                </div>
-                            </div>
-                            <div class="row mb-4">
-                                <div class="col-auto">
-                                    <span>Penulis :</span>
-                                    <span class="h6">{{ $book->author->name }}</span>
-                                </div>
-                                <div class="col-auto">
-                                    <span>Jumlah :</span>
-                                    <span class="h6">{{ $book->jumlah }}</span>
-                                </div>
-                                <div class="col-auto">
-                                    <span>Category :</span>
-                                    <span class="h6">{{ $book->category->name }}</span>
-                                </div>
-                            </div>
-                            <blockquote>
-                                {{ $book->keterangan }}
-                            </blockquote>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- END Testimonials w/ user image & text & info -->
 
     <section class="pb-4">
         <div class="container">
             <div class="col-12">
                 <div class="card mb-4">
-                    <div class="mb-2 px-4 ">
+                    <div class="card-header text-center pb-0 p-3">
+                        <h4 class="mb-1">Buku Category : {{ $categories->name }}</h4>
+                    </div>
+                    <div class="mb-2 px-4 w-100">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item">Daftar Buku dari Penulis : {{ $book->author->name }}</li>
+                                <li class="breadcrumb-item"><a href="{{ url('/') }}">Beranda</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('categories') }}">Category</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">{{ $categories->name }} </li>
                             </ol>
                         </nav>
                     </div>
                     <div class="card-body p-3 mx-auto">
                         <div class="row d-flex justify-content-center">
-                            @foreach ($book->author->books->shuffle()->take(4) as $item)
+                            @foreach ($categories->book as $item)
                                 <div class="col-xl-3 col-md-6 mb-xl-0 mt-4 mb-5">
                                     <div class="card card-blog card-plain">
                                         <div class="position-relative">
@@ -216,20 +165,13 @@
         <hr class="horizontal dark mb-5">
         <div class="container">
             <div class=" row">
-                <div class="col-12 mb-4 ms-auto">
-                    <div class="text-center">
-                        <h6 class="text-gradient text-primary font-weight-bolder">Soft UI Design System</h6>
-                    </div>
-                    <div>
-                    </div>
-                </div>
                 <div class="col-12">
                     <div class="text-center">
                         <p class="my-4 text-sm">
                             <script>
                                 document.write(new Date().getFullYear())
-                            </script> Soft UI Design System by <a href="https://www.creative-tim.com"
-                                target="_blank">Creative Tim</a>.
+                            </script>UI Design by<a href="https://www.creative-tim.com" target="_blank">Rams
+                                Studio</a>.
                         </p>
                     </div>
                 </div>

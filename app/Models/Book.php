@@ -8,9 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Book extends Model
 {
     use HasFactory;
-    protected $table = 'books';
-
-    protected $guarded = ['id'];
+     protected $guarded = ['id'];
 
     public function author()
     {
@@ -20,6 +18,10 @@ class Book extends Model
     public function borrowed(){
         return $this->belongsToMany(User::class, 'author_books'); 
         
+    }
+
+    public function category(){
+        return $this->belongsTo(Category::class);
     }
   
 }

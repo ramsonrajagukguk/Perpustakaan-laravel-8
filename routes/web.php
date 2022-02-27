@@ -2,11 +2,12 @@
 
 use App\Http\Controllers\Admin\Beranda;
 use App\Http\Controllers\Admin\BooksController;
-use App\Http\Controllers\Admin\Buku;
 use App\Http\Controllers\Admin\Datacontroller;
 use App\Http\Controllers\Admin\PenulisController;
 use App\Http\Controllers\BerandaController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 
 /*
@@ -21,13 +22,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [BerandaController::class,'index'])->name('home');
+Route::get('/buku', [BerandaController::class,'buku'])->name('search');
 Route::get('/buku/{id}', [BerandaController::class,'show'])->name('buku');
+
+Route::get('/categories', [CategoryController::class,'index'])->name('categories');
+Route::get('/categories/{category:slug}', [CategoryController::class,'show'])->name('category');
+
+
 Route::post('/buku/pinjam/{id}', [BerandaController::class,'pinjam'])->name('buku.pinjam')->middleware('auth');
 
 
 
 Route::middleware('auth')-> group(function () {
-    Route::get('/admin', [Beranda::class,'index'])->name('beranda');
+    Route::get('/beranda', [Beranda::class,'index'])->name('beranda');
     Route::resource('admin/penulis', PenulisController::class);
     Route::resource('admin/buku', BooksController::class);
     Route::get('/admin/penulis/data', [Datacontroller::class,'penulis'])->name('penulis.data');
@@ -46,6 +53,8 @@ Route::middleware('auth')-> group(function () {
 // })->name('admin')->middleware('auth');
 
 
+// Auth::routes(['verify' => true]);
 Auth::routes(['verify' => true]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

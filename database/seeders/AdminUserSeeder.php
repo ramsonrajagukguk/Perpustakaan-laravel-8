@@ -23,5 +23,14 @@ class AdminUserSeeder extends Seeder
         ]);
 
         $user->assignRole('admin');
+
+        $user = User::create([
+            'name' => 'Ramson',
+            'email' => 'ramson@mail.test',
+            'password' => Hash::make('1'),
+            'email_verified_at' => now(),
+        ]);
+
+        $user->assignRole('user');
     }
 }

@@ -3,19 +3,39 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class BerandaController extends Controller
 {
     public function index(){
-        // $buku = Books::orderBy('id', 'desc')->get();
-        $buku = Book::paginate(8);
-        return view('beranda',compact('buku'));
+              
+        $categories = Category::latest()->orderBy('name','asc')->get();
+        // $buku = Book::paginate(8);
+        $buku = Book::with(['author','category'])->latest()->paginate(8);
+        return view('beranda',compact('buku','categories'));
     }
 
+    public function buku(Request $request){
+              
+        $categories = Category::latest()->orderBy('name','asc')->get();
+        
+        if(request('search')){
+            $buku =Book::where('judul', 'like', '%' . request('search') . '%' )->
+                        orWhere('keterangan', 'like', '%' . request('search') . '%' )
+                    ->paginate(8);
+        }else{
+            $buku = Book::latest()->paginate(8);
+        }
+        return view('beranda',compact('buku','categories'));
+    }
+
+    
+
+
     public function show(Book $id){
-        $book = $id;
+        $book = $id->load('author','category');
         return view('buku_detail',compact('book'));
 
     }

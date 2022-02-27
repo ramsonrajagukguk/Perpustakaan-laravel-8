@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Author;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class BookFactory extends Factory
@@ -14,10 +15,11 @@ class BookFactory extends Factory
      */
     public function definition()
     {
-        $cover ="buku/home-decor-1.jpg";
+        $cover ="buku/buku.jpg";
         return [
             'author_id' => Author::inRandomOrder()->first()->id,
-            'judul' => $this->faker->sentence(mt_rand(2,4)),
+            'category_id' => Category::inRandomOrder()->first()->id,
+            'judul' => $this->faker->sentence(mt_rand(3,5)),
             'keterangan' => $this->faker->sentence(50),
             'jumlah' => rand(10,20),
             'cover' => $cover,

@@ -17,6 +17,7 @@ class CreateAuthorBooksTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('book_id');
+            $table->timestamp('returned_at')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')
