@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Datacontroller;
 use App\Http\Controllers\Admin\PenulisController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\CategoryController;
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,19 +34,19 @@ Route::post('/buku/pinjam/{id}', [BerandaController::class,'pinjam'])->name('buk
 
 
 
-Route::middleware('auth')-> group(function () {
+Route::group(['prefix' => 'admin','middleware' => ['role:admin']] , function(){
     Route::get('/beranda', [Beranda::class,'index'])->name('beranda');
-    Route::resource('admin/penulis', PenulisController::class);
-    Route::resource('admin/buku', BooksController::class);
-    Route::get('/admin/penulis/data', [Datacontroller::class,'penulis'])->name('penulis.data');
+    Route::resource('penulis', PenulisController::class);
+    Route::resource('buku', BooksController::class);
+    Route::get('penulis/data', [Datacontroller::class,'penulis'])->name('penulis.data');
 
-    Route::get('/admin/daftarpinjam',[Beranda::class,'daftar_pinjam'])->name('daftarpinjam');
-    Route::get('/admin/listpinjam',[Beranda::class,'list_pinjam'])->name('listpinjam');
-    Route::get('/admin/history_borrow',[Beranda::class,'history_borrow'])->name('history');
-    Route::get('/admin/history_user',[Beranda::class,'history_user'])->name('history_user');
-    Route::patch('/admin/returnBook/{id}',[Beranda::class,'returnBook'])->name('returnBook');
-    
+    Route::get('daftarpinjam',[Beranda::class,'daftar_pinjam'])->name('daftarpinjam');
+    Route::get('listpinjam',[Beranda::class,'list_pinjam'])->name('listpinjam');
+    Route::get('history_borrow',[Beranda::class,'history_borrow'])->name('history');
+    Route::get('history_user',[Beranda::class,'history_user'])->name('history_user');
+    Route::patch('returnBook/{id}',[Beranda::class,'returnBook'])->name('returnBook');
 });
+
 
 
 // Route::get('/admin', function () {
