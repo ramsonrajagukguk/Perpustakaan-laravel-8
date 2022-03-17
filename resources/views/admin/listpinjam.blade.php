@@ -55,7 +55,7 @@
                                                     </td>
                                                     <td>
                                                         <div class="d-flex flex-column justify-content-center">
-                                                            <h6 class="mb-0 text-sm">{{ $data->book->jumlah }}</h6>
+                                                            <h6 class="mb-0 text-sm">{{ $data->book_count }}</h6>
                                                         </div>
                                                     </td>
                                                     <td class="text-center">

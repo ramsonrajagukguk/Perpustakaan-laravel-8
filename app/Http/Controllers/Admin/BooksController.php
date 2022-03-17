@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Author;
 use App\Models\Book;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class BooksController extends Controller
@@ -28,8 +29,9 @@ class BooksController extends Controller
      */
     public function create()
     {
+        $category = Category::orderBy('name','ASC')->get();
         $penulis = Author::orderBy('name', 'ASC')->get();
-        return view('admin.buku.create', compact('penulis'));
+        return view('admin.buku.create', compact('penulis','category'));
     }
 
     /**
@@ -42,7 +44,7 @@ class BooksController extends Controller
     {
         $this->validate($request,[
             'judul'         => 'required',
-            'penulis_id'    => 'required',
+            'author_id'    => 'required',
             'keterangan'    => 'required|min:10',
             'jumlah'        => 'required',
             'cover '        => 'file|image'

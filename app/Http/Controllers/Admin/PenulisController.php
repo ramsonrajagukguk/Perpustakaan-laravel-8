@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Author;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PenulisController extends Controller
 {
@@ -41,7 +42,12 @@ class PenulisController extends Controller
             'name'            => 'required'
         ]);
 
-        $data = $request->all();
+        $slug = Str::slug($request->name,'-');
+        $data = [
+            'name' => $request->name,
+            'slug' => $slug,
+        ];
+
         Author::create($data);
 
         return redirect()->route('penulis.index')->with('success', 'Data penulis sudah disimpan');
@@ -65,10 +71,11 @@ class PenulisController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Author $penuli)
     {
-        $penulis = Author::findorfail($id);
-        return view('admin.penulis.edit',compact('penulis'));
+       
+        // dd($penuli);
+        return view('admin.penulis.edit',compact('penuli'));
     }
 
     /**
@@ -78,15 +85,19 @@ class PenulisController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Author $penuli)
     {
        $this->validate($request, [
            'name' => 'required',
        ]);
 
-       $ubah = Author::findorfail($id);
-       $data = $request->all();
-       $ubah->update($data);
+       
+       $slug = Str::slug($request->name,'-');
+       $data = [
+           'name' => $request->name,
+           'slug' => $slug,
+       ];
+       $penuli->update($data);
 
        return redirect()->route('penulis.index')->with('success', 'Data penulis berhasil diubah');
     }
@@ -102,4 +113,9 @@ class PenulisController extends Controller
         $penuli->delete();
         return redirect()->route('penulis.index')->with('success', 'Data penulis sudah dihapus');
     }
+
+    // public function checkSlug(Request $request){
+    //     $slug = SlugService::createSlug(Author::class, 'Slug', $request->name);
+    //     return response()->json();
+    // }
 }

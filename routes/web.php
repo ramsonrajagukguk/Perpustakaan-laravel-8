@@ -35,8 +35,13 @@ Route::post('/buku/pinjam/{id}', [BerandaController::class,'pinjam'])->name('buk
 
 
 Route::group(['prefix' => 'admin','middleware' => ['role:admin']] , function(){
-    Route::get('/beranda', [Beranda::class,'index'])->name('beranda');
-    Route::resource('penulis', PenulisController::class);
+    Route::get('/', [Beranda::class,'index'])->name('beranda');
+    Route::get('penulis',[PenulisController::class,'index'])->name('penulis.index');
+    Route::get('penulis/create',[PenulisController::class,'create'])->name('penulis.create');
+    Route::get('penulis/{penuli:slug}/edit',[PenulisController::class,'edit'])->name('penulis.edit');
+    Route::patch('penulis/{penuli:slug}/update',[PenulisController::class,'update'])->name('penulis.update');
+    Route::delete('penulis/{penuli:slug}/destroy',[PenulisController::class,'destroy'])->name('penulis.destroy');
+    // Route::resource('penulis', PenulisController::class);
     Route::resource('buku', BooksController::class);
     Route::get('penulis/data', [Datacontroller::class,'penulis'])->name('penulis.data');
 

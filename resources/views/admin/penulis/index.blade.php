@@ -9,7 +9,7 @@
                             <div class="card-header pb-3">
                                 <div class="d-flex flex-row justify-content-between">
                                     <div>
-                                        <h5 class="mb-0">Daftar Peneulis</h5>
+                                        <h5 class="mb-0">Daftar Penulis</h5>
                                     </div>
                                     <a href="{{ route('penulis.create') }}" class="btn bg-gradient-primary btn-sm mb-0"
                                         type="button">+&nbsp; Penulis Baru</a>
@@ -30,7 +30,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($penulis as $data)
+                                            @foreach ($penulis as $penuli)
                                                 <tr>
                                                     <td style="width: 10px">
                                                         <p class="text-xs text-center font-weight-bold mb-0">
@@ -38,15 +38,15 @@
                                                     </td>
                                                     <td>
                                                         <div class="d-flex flex-column justify-content-center">
-                                                            <h6 class="mb-0 text-sm">{{ $data->name }}</h6>
+                                                            <h6 class="mb-0 text-sm">{{ $penuli->name }}</h6>
                                                         </div>
                                                     </td>
                                                     <td class="text-center">
-                                                        <form action="{{ route('penulis.destroy', $data->id) }}"
+                                                        <form action="{{ route('penulis.destroy', $penuli) }}"
                                                             method="post">
                                                             @csrf
                                                             @method('delete')
-                                                            <a href="{{ route('penulis.edit', $data->id) }}"
+                                                            <a href="{{ route('penulis.edit', $penuli) }}"
                                                                 class="btn btn-success px-3 btn-sm"><i
                                                                     class="nav-icon fas fa-edit fs-6"></i>
                                                             </a>

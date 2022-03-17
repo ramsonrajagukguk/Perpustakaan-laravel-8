@@ -36,8 +36,6 @@
         @include('member.layouts.navbar')
         @yield('member')
 
-
-
         <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fas fa-arrow-up"></i></a>
     </div>

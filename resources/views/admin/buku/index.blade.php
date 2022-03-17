@@ -59,13 +59,7 @@
                                             </td>
                                             <td class="text-start">
                                                 <p class="text-xs font-weight-bold mb-0">
-
                                                     {{ $buku->author->name }}
-                                                    {{-- @foreach ($penulis as $item)
-                                                        @if ($item->id == $buku->penulis_id)
-                                                            {{ $item->name }}
-                                                        @endif
-                                                    @endforeach --}}
                                                 </p>
                                             </td>
                                             <td class="align-middle text-center">

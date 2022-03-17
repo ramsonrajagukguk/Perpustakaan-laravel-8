@@ -21,14 +21,16 @@ class Beranda extends Controller
 
 
     public function list_pinjam(){
-        $borrow = AuthorBook::where('returned_at', null)->get();
+        $borrow = AuthorBook::withCount('book')
+        ->orderBy('book_count','desc')
+        ->where('returned_at', null)->get();
         return view('admin.listpinjam',compact('borrow'));
     } 
 
     public function returnBook(AuthorBook $id){
         $id->update([
             'returned_at' => Carbon::now(),
-            'admin_id'    => auth()->id()  
+            'user_id'    => auth()->id()  
         ]);
 
         $id->book()->increment('jumlah');

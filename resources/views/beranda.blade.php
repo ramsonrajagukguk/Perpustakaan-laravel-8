@@ -70,7 +70,7 @@
                                                     <span class="ps-3">Profile</span></a>
                                                 <a class="dropdown-item border-radius-md" href="{{ route('logout') }}"
                                                     onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            document.getElementById('logout-form').submit();">
                                                     <span class="ps-3">Keluar</span>
                                                 </a>
                                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
@@ -165,7 +165,7 @@
                                             <a href="{{ route('buku', $item) }}"
                                                 class="d-block shadow-xl border-radius-xl">
                                                 <img src="{{ Storage::url($item->cover) }}" alt="img-blur-shadow"
-                                                    class="img-fluid shadow border-radius-xl">
+                                                    class="img-thumbnail shadow border-radius-xl">
                                             </a>
                                         </div>
                                         <div class="card-body px-1 pb-0">
