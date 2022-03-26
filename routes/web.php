@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Datacontroller;
 use App\Http\Controllers\Admin\PenulisController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\MoviesController;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -31,6 +32,8 @@ Route::get('/categories/{category:slug}', [CategoryController::class,'show'])->n
 
 
 Route::post('/buku/pinjam/{id}', [BerandaController::class,'pinjam'])->name('buku.pinjam')->middleware('auth');
+
+Route::resource('movies',MoviesController::class);
 
 
 
