@@ -70,7 +70,7 @@
                                                     <span class="ps-3">Profile</span></a>
                                                 <a class="dropdown-item border-radius-md" href="{{ route('logout') }}"
                                                     onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            document.getElementById('logout-form').submit();">
                                                     <span class="ps-3">Keluar</span>
                                                 </a>
                                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
@@ -145,10 +145,18 @@
                                                 <h6> {{ $movie['original_title'] }}</h6>
                                             </a>
                                             <p class="text-gradient text-dark mb-2 text-sm">
-                                                {{ Str::limit($movie['overview'], 30) }}
+                                                {{ Str::limit($movie['overview'], 130) }}
                                             </p>
                                             <div class="d-flex align-items-center justify-content-between">
-
+                                                <article>
+                                                    @foreach ($movie['genre_ids'] as $genre)
+                                                        <span class="ms-1">{{ $genres->get($genre) }}
+                                                            @if (!$loop->last)
+                                                                ,
+                                                            @endif
+                                                        </span>
+                                                    @endforeach
+                                                </article>
                                             </div>
                                         </div>
                                     </div>

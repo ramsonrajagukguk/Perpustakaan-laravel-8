@@ -31,7 +31,7 @@ class MoviesController extends Controller
             return [$genre['id']=> $genre['name']];
         });
         
-        return view('movies.index',compact('populerMovies'));
+        return view('movies.index',compact('populerMovies','genres'));
     }
 
     /**
