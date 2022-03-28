@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="./assets/img/favicon.png">
-    <title>SISFO Perpustakaan </title>
+    <title>HTTP CLIENTS</title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <!-- Nucleo Icons -->
@@ -29,7 +29,7 @@
                     class="navbar navbar-expand-lg  blur blur-rounded top-0 z-index-fixed shadow position-absolute my-3 py-0 start-0 end-0 mx-4">
                     <div class="container-fluid px-0">
                         <a class="navbar-brand font-weight-bolder ms-sm-3" href="{{ url('/') }}">
-                            SISFO Perpustakaan
+                            HTTP CLIENTS
                         </a>
                         <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false"
@@ -40,54 +40,77 @@
                                 <span class="navbar-toggler-bar bar3"></span>
                             </span>
                         </button>
-                        <div class="collapse navbar-collapse pt-3 pb-2 py-lg-0 w-100" id="navigation">
-                            <ul class="navbar-nav navbar-nav-hover ms-lg-12 ps-lg-5 w-100">
-                                @guest
-                                    <li class="nav-item py-3 ms-lg-auto mx-2">
-                                        <a href="{{ route('login') }}"
-                                            class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-2 mt-2 mt-md-0">Login</a>
-                                    </li>
-                                    <li class="nav-item my-auto ms-3 ms-lg-0">
-                                        <a href="{{ route('register') }}"
-                                            class="btn btn-sm  bg-outline-danger  btn-round mb-0 me-1 mt-2 mt-md-0">REGISTER</a>
-                                    </li>
-                                @else
-                                    <li class="nav-item dropdown dropdown-hover ms-md-auto mx-2">
-                                        <a class="nav-link ps-0 d-flex m-auto cursor-pointer my-auto" id="dropdownMenuPages"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                            <div class="avatar">
-                                                <img src="{{ asset('assets/img/ivana-square.jpg') }}"
-                                                    class="avatar avatar-sm " alt="">
-                                            </div>
-                                            <p class="my-auto">{{ Auth::user()->name }}</p>
-                                            <img src="./assets/img/down-arrow-dark.svg" alt="down-arrow"
-                                                class="arrow ms-1">
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-animation dropdown-sm p-2 border-radius-lg mt-0 mt-lg-2"
-                                            aria-labelledby="dropdownMenuPages">
-                                            <div class="d-none d-lg-block">
-                                                <a href="{{ route('home') }}" class="dropdown-item border-radius-md">
-                                                    <span class="ps-3">Profile</span></a>
-                                                <a class="dropdown-item border-radius-md" href="{{ route('logout') }}"
-                                                    onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            document.getElementById('logout-form').submit();">
-                                                    <span class="ps-3">Keluar</span>
-                                                </a>
-                                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                                    class="d-none">
-                                                    @csrf
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </li>
-                                @endguest
-                            </ul>
+
+
+
+                        <ul class="nav nav-pills  nav-fill p-1" role="tablist">
+                            <li class="nav-item ">
+                                <a class="nav-link mb-0" href="{{ '/' }}" aria-selected="true">
+                                    Buku
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link mb-0  active" href="{{ route('movies.index') }}" role="tab"
+                                    aria-controls="profile" aria-selected="true">
+                                    Movies
+                                </a>
+                            </li>
+                        </ul>
+
+
+                        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                            <div class="input-group">
+                                <span class="input-group-text text-body"><i class="fas fa-search"
+                                        aria-hidden="true"></i></span>
+                                <input type="text" class="form-control" placeholder="Type here...">
+                            </div>
                         </div>
+                        <ul class="navbar-nav justify-content-end">
+                            @guest
+                                <li class="nav-item py-3 ms-lg-auto">
+                                    <a href="{{ route('login') }}"
+                                        class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-2 mt-2 mt-md-0">Login</a>
+                                </li>
+                                <li class="nav-item my-auto ms-3 ms-lg-0">
+                                    <a href="{{ route('register') }}"
+                                        class="btn btn-sm  bg-outline-danger  btn-round mb-0 me-1 mt-2 mt-md-0">REGISTER</a>
+                                </li>
+                            @else
+                                <li class="nav-item dropdown dropdown-hover ms-md-auto mx-2">
+                                    <a class="nav-link ps-0 d-flex m-auto cursor-pointer my-auto" id="dropdownMenuPages"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        <div class="avatar">
+                                            <img src="{{ asset('assets/img/ivana-square.jpg') }}"
+                                                class="avatar avatar-sm " alt="">
+                                        </div>
+                                        <p class="my-auto">{{ Auth::user()->name }}</p>
+                                        <img src="./assets/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-1">
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-animation dropdown-sm p-2 border-radius-lg mt-0 mt-lg-2"
+                                        aria-labelledby="dropdownMenuPages">
+                                        <div class="d-none d-lg-block">
+                                            <a href="{{ route('home') }}" class="dropdown-item border-radius-md">
+                                                <span class="ps-3">Profile</span></a>
+                                            <a class="dropdown-item border-radius-md" href="{{ route('logout') }}"
+                                                onclick="event.preventDefault();
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    document.getElementById('logout-form').submit();">
+                                                <span class="ps-3">Keluar</span>
+                                            </a>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                class="d-none">
+                                                @csrf
+                                            </form>
+                                        </div>
+                                    </div>
+                                </li>
+                            @endguest
+                        </ul>
                     </div>
-                </nav>
-                <!-- End Navbar -->
             </div>
+            </nav>
+            <!-- End Navbar -->
         </div>
+    </div>
     </div>
     <header class="header-2">
         <div class="page-header min-vh-50 relative" style="background-image: url('./assets/img/curved.jpg')">
@@ -124,51 +147,25 @@
             <div class="col-12 mt-4">
                 <div class="card mb-4">
                     <div class="card-body p-3">
+                        <h2 class="text-dark fs-3 uppercase">Populer Movies</h2>
                         <div class="row">
                             @foreach ($populerMovies as $movie)
-                                <div class="col-xl-3 col-md-6 mb-xl-0 mt-4 mb-5">
-                                    <div class="card card-blog card-plain">
-                                        <div class="position-relative">
-                                            <a href="" class="d-block shadow-xl border-radius-xl">
-                                                <img src=" {{ 'https://image.tmdb.org/t/p/w300/' . $movie['poster_path'] }}"
-                                                    alt="img-blur-shadow" class="img-fluid shadow border-radius-xl">
-                                            </a>
-                                        </div>
-                                        <div class="card-body px-1 pb-0">
-                                            <div class="h-100">
-                                                <p class="mb-0 font-weight-bold text-sm">
-                                                    {{ $movie['vote_average'] * 10 . '%' }} |
-                                                    {{ \Carbon\Carbon::parse($movie['release_date'])->format('d M, Y') }}
-                                                </p>
-                                            </div>
-                                            <a href="{{ route('movies.show', $movie['id']) }}">
-                                                <h6> {{ $movie['original_title'] }}</h6>
-                                            </a>
-                                            <p class="text-gradient text-dark mb-2 text-sm">
-                                                {{ Str::limit($movie['overview'], 130) }}
-                                            </p>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <article>
-                                                    @foreach ($movie['genre_ids'] as $genre)
-                                                        <span class="ms-1">{{ $genres->get($genre) }}
-                                                            @if (!$loop->last)
-                                                                ,
-                                                            @endif
-                                                        </span>
-                                                    @endforeach
-                                                </article>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <x-movie-card :movie="$movie" :genres="$genres" />
                             @endforeach
-
                             <div class="col-12 mt-6 d-flex justify-content-center">
-
                             </div>
                         </div>
                     </div>
-
+                    <div class="card-body p-3">
+                        <h2 class="text-dark fs-3 uppercase">Now Playing</h2>
+                        <div class="row">
+                            @foreach ($nowPlayingMovies as $movie)
+                                <x-movie-card :movie="$movie" :genres="$genres" />
+                            @endforeach
+                            <div class="col-12 mt-6 d-flex justify-content-center">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
