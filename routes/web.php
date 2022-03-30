@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActorsController;
 use App\Http\Controllers\Admin\Beranda;
 use App\Http\Controllers\Admin\BooksController;
 use App\Http\Controllers\Admin\Datacontroller;
@@ -34,6 +35,9 @@ Route::get('/categories/{category:slug}', [CategoryController::class,'show'])->n
 Route::post('/buku/pinjam/{id}', [BerandaController::class,'pinjam'])->name('buku.pinjam')->middleware('auth');
 
 Route::resource('movies',MoviesController::class);
+Route::resource('actors',ActorsController::class);
+Route::get('/actors/page/{page?}',[ActorsController::class,'index']);
+
 
 
 

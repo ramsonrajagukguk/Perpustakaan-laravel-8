@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\ViewModels\ActorsViewModel;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 
 class ActorsController extends Controller
@@ -11,9 +13,15 @@ class ActorsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($page =1)
     {
-        //
+        $populerActors = Http::withToken(config('services.tmdb.token'))
+        ->get('https://api.themoviedb.org/3/person/popular?page='.$page)
+        ->json()['results'];
+
+        $viewModel = new ActorsViewModel($populerActors, $page);
+         
+        return view('actors.index', $viewModel);
     }
 
     /**

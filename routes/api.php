@@ -25,6 +25,7 @@ Route::resource('books',BookController::class);
 Route::get('/books/{book}', [BookController::class,'show'])->name('books.show');
 Route::post('/books', [BookController::class,'store'])->name('books.store');
 Route::middleware(['auth:sanctum'])->group(function () {
+    
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

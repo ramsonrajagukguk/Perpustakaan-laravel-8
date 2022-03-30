@@ -70,7 +70,7 @@
                                                     <span class="ps-3">Profile</span></a>
                                                 <a class="dropdown-item border-radius-md" href="{{ route('logout') }}"
                                                     onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                document.getElementById('logout-form').submit();">
                                                     <span class="ps-3">Keluar</span>
                                                 </a>
                                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
@@ -159,7 +159,7 @@
                     <div class="card-body p-3">
                         <div class="row">
                             @foreach ($buku as $item)
-                                <div class="col-xl-3 col-md-6 mb-xl-0 mt-4 mb-5">
+                                <div class="col-xl-2 col-md-6 mb-xl-0 mt-4 mb-5">
                                     <div class="card card-blog card-plain">
                                         <div class="position-relative">
                                             <a href="{{ route('buku', $item) }}"
