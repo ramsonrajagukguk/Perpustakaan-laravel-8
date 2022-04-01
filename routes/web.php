@@ -32,7 +32,7 @@ Route::get('/categories', [CategoryController::class,'index'])->name('categories
 Route::get('/categories/{category:slug}', [CategoryController::class,'show'])->name('category');
 
 
-Route::post('/buku/pinjam/{id}', [BerandaController::class,'pinjam'])->name('buku.pinjam')->middleware('auth');
+Route::post('/buku/pinjam/{id}', [BerandaController::class,'pinjam'])->name('buku.pinjam')->middleware('auth:sanctum');
 
 Route::resource('movies',MoviesController::class);
 Route::resource('actors',ActorsController::class);
@@ -60,14 +60,7 @@ Route::group(['prefix' => 'admin','middleware' => ['role:admin']] , function(){
 });
 
 
-
-// Route::get('/admin', function () {
-//     return view('admin.beranda');
-// })->name('admin')->middleware('auth');
-
-
-// Auth::routes(['verify' => true]);
 Auth::routes(['verify' => true]);
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

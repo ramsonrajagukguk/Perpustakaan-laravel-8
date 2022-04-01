@@ -100,7 +100,7 @@
                                                 <span class="ps-3">Profile</span></a>
                                             <a class="dropdown-item border-radius-md" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                document.getElementById('logout-form').submit();">
                                                 <span class="ps-3">Keluar</span>
                                             </a>
                                             <form id="logout-form" action="{{ route('logout') }}" method="POST"
@@ -124,7 +124,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-7 text-center mx-auto">
-                        <h1 class="text-white pt-3 mt-n5">Movies</h1>
+                        <h1 class="text-white pt-3 mt-n5">Actors</h1>
                         {{-- <p class="lead text-white mt-3">Free & Open Source Web UI Kit built over Bootstrap 5. <br /> Join over 1.4 million developers around the world. </p> --}}
                     </div>
                 </div>
@@ -167,11 +167,9 @@
                                             </a>
                                         </div>
                                         <div class="card-body px-1 pb-0">
-
                                             <a href="{{ route('actors.show', $actor['id']) }}">
                                                 <h6> {{ $actor['name'] }}</h6>
                                             </a>
-
                                             <span class="trucate">{{ $actor['known_for'] }}</span>
                                         </div>
                                     </div>

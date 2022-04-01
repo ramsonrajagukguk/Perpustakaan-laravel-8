@@ -69,8 +69,7 @@
                                                 <a href="{{ route('home') }}" class="dropdown-item border-radius-md">
                                                     <span class="ps-3">Profile</span></a>
                                                 <a class="dropdown-item border-radius-md" href="{{ route('logout') }}"
-                                                    onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                document.getElementById('logout-form').submit();">
+                                                    onclick="event.preventDefault();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   document.getElementById('logout-form').submit();">
                                                     <span class="ps-3">Keluar</span>
                                                 </a>
                                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
@@ -139,9 +138,6 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="mb-2 px-4 ">
-
-                        </div>
                         <div class="row d-flex justify-content-center">
                             @foreach ($categories as $category)
                                 <div class="col-2">
@@ -157,37 +153,42 @@
                         </div>
                     </div>
                     <div class="card-body p-3">
-                        <div class="row">
-                            @foreach ($buku as $item)
-                                <div class="col-xl-2 col-md-6 mb-xl-0 mt-4 mb-5">
-                                    <div class="card card-blog card-plain">
-                                        <div class="position-relative">
-                                            <a href="{{ route('buku', $item) }}"
-                                                class="d-block shadow-xl border-radius-xl">
-                                                <img src="{{ Storage::url($item->cover) }}" alt="img-blur-shadow"
-                                                    class="img-thumbnail shadow border-radius-xl">
-                                            </a>
-                                        </div>
-                                        <div class="card-body px-1 pb-0">
-                                            <a href="{{ route('buku', $item) }}">
-                                                <h6>{{ Str::limit($item->judul, 30) }}</h6>
-                                            </a>
-                                            <p class="text-gradient text-dark mb-2 text-sm">
-                                                {{ Str::limit($item->keterangan, 50) }}</p>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <form action="{{ route('buku.pinjam', $item) }}" method="POST">
-                                                    @csrf
-                                                    <button type="Submit"
-                                                        class="btn btn-outline-primary btn-sm mb-0">Pinjam
-                                                        Buku</button>
-                                                </form>
+                        <div class="books">
+                            <div class="row">
+                                @foreach ($buku as $item)
+                                    <div class="col-xl-2 col-md-6 mb-xl-0  mt-4 mb-5">
+                                        <div class="card card-plain">
+                                            <div class="position-relative">
+                                                <a href="{{ route('buku', $item) }}"
+                                                    class="d-block shadow-xl border-radius-xl">
+                                                    <img src="{{ Storage::url($item->cover) }}" alt="img-blur-shadow"
+                                                        class="img-thumbnail shadow border-radius-xl">
+                                                </a>
+                                            </div>
+                                            <div class="card-body px-1 pb-0">
+                                                <a href="{{ route('buku', $item) }}">
+                                                    <h6>{{ Str::limit($item->judul, 30) }}</h6>
+                                                </a>
+                                                <p class="text-gradient text-dark mb-2 text-sm">
+                                                    {{ Str::limit($item->keterangan, 50) }}</p>
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <form action="{{ route('buku.pinjam', $item) }}" method="POST">
+                                                        @csrf
+                                                        <button type="Submit"
+                                                            class="btn btn-outline-primary btn-sm mb-0">Pinjam
+                                                            Buku</button>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                @endforeach
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-2 col-md-6 mb-xl-0  mt-4 mb-5">
+                                    {{ $buku->links() }}
+                                    {{-- <a class="pagination__next" href="?page=2"></a> --}}
                                 </div>
-                            @endforeach
-                            <div class="col-12 mt-6 d-flex justify-content-center">
-                                {{ $buku->links() }}
                             </div>
                         </div>
                     </div>
@@ -196,6 +197,7 @@
             </div>
         </div>
     </section>
+
 
 
     <!-- -------   END PRE-FOOTER 2 - simple social line w/ title & 3 buttons    -------- -->
@@ -230,6 +232,17 @@
     <script src="{{ asset('assets/js/plugins/toastr.min.js') }}" type="text/javascript"></script>
     <script src="./assets/js/plugins/perfect-scrollbar.min.js"></script>
     <script src="{{ asset('assets/js/soft-design-system.min.js') }}" type="text/javascript"></script>
+    <script src="https://unpkg.com/infinite-scroll@4/dist/infinite-scroll.pkgd.js"></script>
+
+    <script>
+        $('.books').infiniteScroll({
+            // options
+            path: '.pagination__next',
+            append: '.col-xl-2 ',
+            history: false,
+        });
+    </script>
+
     @if (Session::has('success'))
         <script>
             toastr.success("{{ Session('success') }}");

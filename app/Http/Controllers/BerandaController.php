@@ -63,5 +63,4 @@ class BerandaController extends Controller
         return 'ok';
     }
 
-    
 }

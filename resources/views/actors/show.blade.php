@@ -71,7 +71,7 @@
                                                     <span class="ps-3">Profile</span></a>
                                                 <a class="dropdown-item border-radius-md" href="{{ route('logout') }}"
                                                     onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                document.getElementById('logout-form').submit();">
                                                     <span class="ps-3">Keluar</span>
                                                 </a>
                                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
@@ -130,87 +130,68 @@
                                 <div class="card card-blog card-plain">
                                     <div class="position-relative">
                                         <div class="d-block shadow-xl border-radius-xl">
-                                            <img src=" {{ 'https://image.tmdb.org/t/p/w300/' . $movie['poster_path'] }}"
-                                                alt="img-blur-shadow" class="img-fluid shadow border-radius-xl">
+                                            <img src=" {{ $actor['profile_path'] }}" alt="img-blur-shadow"
+                                                class="img-fluid shadow border-radius-xl">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-8 col-md-6 mb-xl-0 mt-4 mb-5">
                                 <div class="card-body px-1 pb-0">
-                                    <h3> {{ $movie['original_title'] }}</h3>
+                                    <h3> {{ $actor['name'] }}</h3>
                                     <div class="h-100">
                                         <span class="mb-2 font-weight-bold text-sm"> <i class="fas fa-start"></i>
-                                            {{ $movie['vote_average'] * 10 . '%' }}
+                                            {{ $actor['birthday'] }}
                                         </span>
                                         <span>|</span>
                                         <span class="mb-2 font-weight-bold text-sm">
-                                            {{ \Carbon\Carbon::parse($movie['release_date'])->format('d M, Y') }}
+                                            {{ $actor['age'] }} Tahun
                                         </span>
-                                        <div class="d-flex mb-4 align-items-center justify-content-between">
-                                            <article>
-                                                @foreach ($movie['genres'] as $genre)
-                                                    <span class="ms-1">{{ $genre['name'] }}
-                                                        @if (!$loop->last)
-                                                            ,
-                                                        @endif
-                                                    </span>
-                                                @endforeach
-                                            </article>
-                                        </div>
+                                        <span class="mb-2 font-weight-bold text-sm">
+                                            | {{ $actor['place_of_birth'] }}
+                                        </span>
                                     </div>
                                     <p class="text-gradient text-dark mb-2 text-sm">
-                                    <h4>Kilasan Singkat</h4>
-                                    {{ $movie['overview'] }}
+                                    <h4>Biografi</h4>
+                                    {{ $actor['biography'] }}
                                     </p>
                                     <div class="mt-4">
-                                        <h4 class="text-dark">Crew</h4>
-                                        <div class="crew d-flex">
-                                            @foreach ($movie['credits']['crew'] as $crew)
-                                                @if ($loop->index < 5)
-                                                    <div class="me-4">
-                                                        <span>{{ $crew['name'] }}</span>
-                                                        <div class="text-sm text-gray">{{ $crew['job'] }}</div>
+                                        <h4 class="text-dark">Peran</h4>
+                                        <div class="row">
+                                            @foreach ($knownForMovies as $movies)
+                                                <div class="col-xl-2 col-md-6 mb-xl-0 mt-4 mb-5">
+                                                    <div class="card card-blog card-plain">
+                                                        <div class="position-relative">
+                                                            <div class="d-block shadow-xl border-radius-xl">
+                                                                <a href="{{ route('movies.show', $movies['id']) }}">
+                                                                    <img src=" {{ $movies['poster_path'] }}"
+                                                                        alt="img-blur-shadow"
+                                                                        class="img-fluid shadow border-radius-xl">
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <a
+                                                            href="{{ route('movies.show', $movies['id']) }}">{{ $movies['title'] }}</a>
                                                     </div>
-                                                @endif
+                                                </div>
                                             @endforeach
                                         </div>
                                     </div>
-                                    @if (count($movie['videos']['results']) > 0)
-                                        <a href="https://youtube.com/watch?v={{ $movie['videos']['results'][0]['key'] }}"
-                                            target="blank" class="text-dark"> Playing Traillers</a>
-                                    @endif
+                                    <div class="mt-3">
+                                        <h4 class="text-dark">Judul Flim</h4>
 
+                                        <ul>
+                                            @foreach ($credits as $credit)
+                                                <li>{{ $credit['release_year'] }}
+                                                    <strong>{{ $credit['title'] }}</strong>
+                                                    {{ $credit['character'] }}
+                                                </li>
+                                            @endforeach
+                                        </ul>
+
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-
-                    <div class="card-body p-3">
-                        <div class="row">
-                            <h4 class="text-dark">Actris</h4>
-                            @foreach ($movie['credits']['cast'] as $cast)
-                                @if ($loop->index < 12)
-                                    <div class="col-xl-2 col-md-6 mb-xl-0 mt-4 mb-5">
-                                        <div class="card card-blog card-plain">
-                                            <div class="position-relative">
-                                                <div class="d-block shadow-xl border-radius-xl">
-                                                    <a href="{{ route('actors.show', $cast['id']) }}">
-                                                        <img src=" {{ 'https://image.tmdb.org/t/p/w200/' . $cast['profile_path'] }}"
-                                                            alt="img-blur-shadow"
-                                                            class="img-fluid shadow border-radius-xl">
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="me-4 text-center">
-                                            <span>{{ $cast['name'] }}</span>
-                                            <div class="text-sm text-gray">{{ $cast['character'] }}</div>
-                                        </div>
-                                    </div>
-                                @endif
-                            @endforeach
                         </div>
                     </div>
                 </div>
