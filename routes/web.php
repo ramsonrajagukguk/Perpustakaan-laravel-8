@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\ActorsController;
 use App\Http\Controllers\Admin\Beranda;
 use App\Http\Controllers\Admin\BooksController;
 use App\Http\Controllers\Admin\Datacontroller;
 use App\Http\Controllers\Admin\PenulisController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\MoviesController;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -30,7 +32,12 @@ Route::get('/categories', [CategoryController::class,'index'])->name('categories
 Route::get('/categories/{category:slug}', [CategoryController::class,'show'])->name('category');
 
 
-Route::post('/buku/pinjam/{id}', [BerandaController::class,'pinjam'])->name('buku.pinjam')->middleware('auth');
+Route::post('/buku/pinjam/{id}', [BerandaController::class,'pinjam'])->name('buku.pinjam')->middleware('auth:sanctum');
+
+Route::resource('movies',MoviesController::class);
+Route::resource('actors',ActorsController::class);
+Route::get('/actors/page/{page?}',[ActorsController::class,'index']);
+
 
 
 
@@ -53,14 +60,7 @@ Route::group(['prefix' => 'admin','middleware' => ['role:admin']] , function(){
 });
 
 
-
-// Route::get('/admin', function () {
-//     return view('admin.beranda');
-// })->name('admin')->middleware('auth');
-
-
-// Auth::routes(['verify' => true]);
 Auth::routes(['verify' => true]);
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

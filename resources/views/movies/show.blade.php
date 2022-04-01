@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="./assets/img/favicon.png">
-    <title>SISFO Perpustakaan </title>
+    <title>HTTP CLIENT</title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <!-- Nucleo Icons -->
@@ -29,7 +29,7 @@
                     class="navbar navbar-expand-lg  blur blur-rounded top-0 z-index-fixed shadow position-absolute my-3 py-0 start-0 end-0 mx-4">
                     <div class="container-fluid px-0">
                         <a class="navbar-brand font-weight-bolder ms-sm-3" href="{{ url('/') }}">
-                            SISFO Perpustakaan
+                            HTTP CLIENTS
                         </a>
                         <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false"
@@ -40,6 +40,7 @@
                                 <span class="navbar-toggler-bar bar3"></span>
                             </span>
                         </button>
+
                         <div class="collapse navbar-collapse pt-3 pb-2 py-lg-0 w-100" id="navigation">
                             <ul class="navbar-nav navbar-nav-hover ms-lg-12 ps-lg-5 w-100">
                                 @guest
@@ -69,7 +70,8 @@
                                                 <a href="{{ route('home') }}" class="dropdown-item border-radius-md">
                                                     <span class="ps-3">Profile</span></a>
                                                 <a class="dropdown-item border-radius-md" href="{{ route('logout') }}"
-                                                    onclick="event.preventDefault();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   document.getElementById('logout-form').submit();">
+                                                    onclick="event.preventDefault();
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                document.getElementById('logout-form').submit();">
                                                     <span class="ps-3">Keluar</span>
                                                 </a>
                                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
@@ -89,11 +91,11 @@
         </div>
     </div>
     <header class="header-2">
-        <div class="page-header min-vh-55 relative" style="background-image: url('./assets/img/curved.jpg')">
+        <div class="page-header min-vh-50 relative" style="background-image: url('../assets/img/curved.jpg')">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-7 text-center mx-auto">
-                        <h1 class="text-white pt-3 mt-n5">SISTEM INFORMASI PERPUSTAKAAN</h1>
+                        <h1 class="text-white pt-3 mt-n5">Movies</h1>
                         {{-- <p class="lead text-white mt-3">Free & Open Source Web UI Kit built over Bootstrap 5. <br /> Join over 1.4 million developers around the world. </p> --}}
                     </div>
                 </div>
@@ -122,103 +124,112 @@
         <div class="container">
             <div class="col-12 mt-4">
                 <div class="card mb-4">
-                    <div class="card-header text-center pb-0 p-3">
-                        <h4 class="mb-3">Daftar Buku Programmer</h4>
+                    <div class="card-body p-3">
                         <div class="row">
-                            <form action="{{ route('search') }}">
-                                <div class="col-md-6 mx-auto">
-                                    <div class="form-group ">
-                                        <div class="input-group input-group-alternative mb-4">
-                                            <input class="form-control" placeholder="Pencarian Buku" name="search"
-                                                type="text">
-                                            <button type="submit" class="input-group-text btn-primary"><i
-                                                    class="ni ni-search"></i>Cari</button>
+                            <div class="col-xl-3 col-md-6 mb-xl-0 mt-4 mb-5">
+                                <div class="card card-blog card-plain">
+                                    <div class="position-relative">
+                                        <div class="d-block shadow-xl border-radius-xl">
+                                            <img src=" {{ 'https://image.tmdb.org/t/p/w300/' . $movie['poster_path'] }}"
+                                                alt="img-blur-shadow" class="img-fluid shadow border-radius-xl">
                                         </div>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
-                        <div class="row d-flex justify-content-center">
-                            @foreach ($categories as $category)
-                                <div class="col-2">
-                                    <div class="card card-blog card-plain">
-                                        <div class="card-body  px-1 pb-0">
-                                            <a href="{{ route('category', $category->slug) }}">
-                                                <h6>{{ $category->name }}</h6>
-                                            </a>
+                            </div>
+                            <div class="col-xl-8 col-md-6 mb-xl-0 mt-4 mb-5">
+                                <div class="card-body px-1 pb-0">
+                                    <h3> {{ $movie['original_title'] }}</h3>
+                                    <div class="h-100">
+                                        <span class="mb-2 font-weight-bold text-sm"> <i class="fas fa-start"></i>
+                                            {{ $movie['vote_average'] * 10 . '%' }}
+                                        </span>
+                                        <span>|</span>
+                                        <span class="mb-2 font-weight-bold text-sm">
+                                            {{ \Carbon\Carbon::parse($movie['release_date'])->format('d M, Y') }}
+                                        </span>
+                                        <div class="d-flex mb-4 align-items-center justify-content-between">
+                                            <article>
+                                                @foreach ($movie['genres'] as $genre)
+                                                    <span class="ms-1">{{ $genre['name'] }}
+                                                        @if (!$loop->last)
+                                                            ,
+                                                        @endif
+                                                    </span>
+                                                @endforeach
+                                            </article>
                                         </div>
                                     </div>
+                                    <p class="text-gradient text-dark mb-2 text-sm">
+                                    <h4>Kilasan Singkat</h4>
+                                    {{ $movie['overview'] }}
+                                    </p>
+                                    <div class="mt-4">
+                                        <h4 class="text-dark">Crew</h4>
+                                        <div class="crew d-flex">
+                                            @foreach ($movie['credits']['crew'] as $crew)
+                                                @if ($loop->index < 5)
+                                                    <div class="me-4">
+                                                        <span>{{ $crew['name'] }}</span>
+                                                        <div class="text-sm text-gray">{{ $crew['job'] }}</div>
+                                                    </div>
+                                                @endif
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    @if (count($movie['videos']['results']) > 0)
+                                        <a href="https://youtube.com/watch?v={{ $movie['videos']['results'][0]['key'] }}"
+                                            target="blank" class="text-dark"> Playing Traillers</a>
+                                    @endif
+
                                 </div>
-                            @endforeach
+                            </div>
                         </div>
                     </div>
+
+
                     <div class="card-body p-3">
-                        <div class="books">
-                            <div class="row">
-                                @foreach ($buku as $item)
-                                    <div class="col-xl-2 col-md-6 mb-xl-0  mt-4 mb-5">
-                                        <div class="card card-plain">
+                        <div class="row">
+                            <h4 class="text-dark">Actris</h4>
+                            @foreach ($movie['credits']['cast'] as $cast)
+                                @if ($loop->index < 12)
+                                    <div class="col-xl-2 col-md-6 mb-xl-0 mt-4 mb-5">
+                                        <div class="card card-blog card-plain">
                                             <div class="position-relative">
-                                                <a href="{{ route('buku', $item) }}"
-                                                    class="d-block shadow-xl border-radius-xl">
-                                                    <img src="{{ Storage::url($item->cover) }}" alt="img-blur-shadow"
-                                                        class="img-thumbnail shadow border-radius-xl">
-                                                </a>
-                                            </div>
-                                            <div class="card-body px-1 pb-0">
-                                                <a href="{{ route('buku', $item) }}">
-                                                    <h6>{{ Str::limit($item->judul, 30) }}</h6>
-                                                </a>
-                                                <p class="text-gradient text-dark mb-2 text-sm">
-                                                    {{ Str::limit($item->keterangan, 50) }}</p>
-                                                <div class="d-flex align-items-center justify-content-between">
-                                                    <form action="{{ route('buku.pinjam', $item) }}" method="POST">
-                                                        @csrf
-                                                        <button type="Submit"
-                                                            class="btn btn-outline-primary btn-sm mb-0">Pinjam
-                                                            Buku</button>
-                                                    </form>
+                                                <div class="d-block shadow-xl border-radius-xl">
+                                                    <a href="{{ route('actors.show', $cast['id']) }}">
+                                                        <img src=" {{ 'https://image.tmdb.org/t/p/w200/' . $cast['profile_path'] }}"
+                                                            alt="img-blur-shadow"
+                                                            class="img-fluid shadow border-radius-xl">
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="me-4 text-center">
+                                            <span>{{ $cast['name'] }}</span>
+                                            <div class="text-sm text-gray">{{ $cast['character'] }}</div>
+                                        </div>
                                     </div>
-                                @endforeach
-                            </div>
-                            <div class="row">
-                                <div class="col-xl-2 col-md-6 mb-xl-0  mt-4 mb-5">
-                                    {{ $buku->links() }}
-                                    {{-- <a class="pagination__next" href="?page=2"></a> --}}
-                                </div>
-                            </div>
+                                @endif
+                            @endforeach
                         </div>
                     </div>
-
                 </div>
             </div>
-        </div>
+
     </section>
 
 
-
     <!-- -------   END PRE-FOOTER 2 - simple social line w/ title & 3 buttons    -------- -->
-    <footer class="footer pt-5 mt-2">
-        <hr class="horizontal dark mb-5">
+    <footer class="footer mt-2">
+        <hr class="horizontal dark">
         <div class="container">
             <div class=" row">
-                <div class="col-12 mb-4 ms-auto">
-                    <div class="text-center">
-                        <h6 class="text-gradient text-primary font-weight-bolder">Soft UI Design System</h6>
-                    </div>
-                    <div>
-                    </div>
-                </div>
                 <div class="col-12">
                     <div class="text-center">
-                        <p class="my-4 text-sm">
+                        <p class="my-2 text-sm">
                             <script>
                                 document.write(new Date().getFullYear())
-                            </script> Soft UI Design System by <a href="https://www.creative-tim.com"
-                                target="_blank">Creative Tim</a>.
+                            </script> UI Design
                         </p>
                     </div>
                 </div>
@@ -232,22 +243,6 @@
     <script src="{{ asset('assets/js/plugins/toastr.min.js') }}" type="text/javascript"></script>
     <script src="./assets/js/plugins/perfect-scrollbar.min.js"></script>
     <script src="{{ asset('assets/js/soft-design-system.min.js') }}" type="text/javascript"></script>
-    <script src="https://unpkg.com/infinite-scroll@4/dist/infinite-scroll.pkgd.js"></script>
-
-    <script>
-        $('.books').infiniteScroll({
-            // options
-            path: '.pagination__next',
-            append: '.col-xl-2 ',
-            history: false,
-        });
-    </script>
-
-    @if (Session::has('success'))
-        <script>
-            toastr.success("{{ Session('success') }}");
-        </script>
-    @endif
 </body>
 
 </html>

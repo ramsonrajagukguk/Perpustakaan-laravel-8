@@ -13,7 +13,7 @@ class BerandaController extends Controller
               
         $categories = Category::latest()->orderBy('name','asc')->get();
         // $buku = Book::paginate(8);
-        $buku = Book::with(['author','category'])->latest()->paginate(8);
+        $buku = Book::with(['author','category'])->latest()->paginate(12);
         return view('beranda',compact('buku','categories'));
     }
 
@@ -63,5 +63,4 @@ class BerandaController extends Controller
         return 'ok';
     }
 
-    
 }
