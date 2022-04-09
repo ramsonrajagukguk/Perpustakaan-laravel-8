@@ -13,6 +13,7 @@
     <link href="{{ asset('assets/css/nucleo-icons.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/nucleo-svg.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/toastr.min.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
 
     <!-- Font Awesome Icons -->
     <script src="{{ asset('assets/js/fontawesome.js') }}" crossorigin="anonymous"></script>
@@ -129,8 +130,8 @@
                                 <div class="col-md-6 mx-auto">
                                     <div class="form-group ">
                                         <div class="input-group input-group-alternative mb-4">
-                                            <input class="form-control" placeholder="Pencarian Buku" name="search"
-                                                type="text">
+                                            <input class="form-control" id="search" placeholder="Pencarian Buku"
+                                                name="search" type="text">
                                             <button type="submit" class="input-group-text btn-primary"><i
                                                     class="ni ni-search"></i>Cari</button>
                                         </div>
@@ -140,7 +141,7 @@
                         </div>
                         <div class="row d-flex justify-content-center">
                             @foreach ($categories as $category)
-                                <div class="col-2">
+                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-4">
                                     <div class="card card-blog card-plain">
                                         <div class="card-body  px-1 pb-0">
                                             <a href="{{ route('category', $category->slug) }}">
@@ -153,10 +154,10 @@
                         </div>
                     </div>
                     <div class="card-body p-3">
-                        <div class="books">
-                            <div class="row">
+                        <div class="mega-grid">
+                            <div class="row justify-content-center">
                                 @foreach ($buku as $item)
-                                    <div class="col-xl-2 col-md-6 mb-xl-0  mt-4 mb-5">
+                                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-4 mt-4 mb-5 infscroll-item">
                                         <div class="card card-plain">
                                             <div class="position-relative">
                                                 <a href="{{ route('buku', $item) }}"
@@ -184,11 +185,12 @@
                                     </div>
                                 @endforeach
                             </div>
-                            <div class="row">
-                                <div class="col-xl-2 col-md-6 mb-xl-0  mt-4 mb-5">
-                                    {{ $buku->links() }}
-                                    {{-- <a class="pagination__next" href="?page=2"></a> --}}
-                                </div>
+                        </div>
+                        {{-- <a class="pagination__next" href="?page=2"></a> --}}
+
+                        <div class="row">
+                            <div class="col-xl-2 col-md-6 mb-xl-0  mt-4 mb-5">
+                                {{ $buku->links() }}
                             </div>
                         </div>
                     </div>
@@ -233,12 +235,39 @@
     <script src="./assets/js/plugins/perfect-scrollbar.min.js"></script>
     <script src="{{ asset('assets/js/soft-design-system.min.js') }}" type="text/javascript"></script>
     <script src="https://unpkg.com/infinite-scroll@4/dist/infinite-scroll.pkgd.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 
     <script>
-        $('.books').infiniteScroll({
+        $(function() {
+            $("#search").autocomplete({
+                source: function(request, response) {
+                    $.ajax({
+                        url: "{{ url('cari') }}",
+                        data: {
+                            term: request.term
+                        },
+                        dataType: "json",
+                        delay: 250,
+                        success: function(data) {
+                            var resp = $.map(data, function(obj) {
+                                return obj.judul;
+                            });
+                            response(resp);
+                        }
+                    });
+                },
+                minLength: 2
+            });
+        });
+    </script>
+
+
+
+    <script>
+        $('.mega-grid').infiniteScroll({
             // options
             path: '.pagination__next',
-            append: '.col-xl-2 ',
+            append: '.infscroll-item ',
             history: false,
         });
     </script>

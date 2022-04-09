@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\ActorsController;
 use App\Http\Controllers\Admin\Beranda;
 use App\Http\Controllers\Admin\BooksController;
@@ -26,6 +27,7 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', [BerandaController::class,'index'])->name('home');
 Route::get('/buku', [BerandaController::class,'buku'])->name('search');
+Route::get('cari', [BerandaController::class,'loadData']);
 Route::get('/buku/{id}', [BerandaController::class,'show'])->name('buku');
 
 Route::get('/categories', [CategoryController::class,'index'])->name('categories');
@@ -57,6 +59,10 @@ Route::group(['prefix' => 'admin','middleware' => ['role:admin']] , function(){
     Route::get('history_borrow',[Beranda::class,'history_borrow'])->name('history');
     Route::get('history_user',[Beranda::class,'history_user'])->name('history_user');
     Route::patch('returnBook/{id}',[Beranda::class,'returnBook'])->name('returnBook');
+
+    Route::get('absensi',[AbsensiController::class,'index'])->name('absensi');
+    Route::post('absensi',[AbsensiController::class,'store'])->name('attendance');
+    // Route::resource('absensi', AbsensiController::class);
 });
 
 

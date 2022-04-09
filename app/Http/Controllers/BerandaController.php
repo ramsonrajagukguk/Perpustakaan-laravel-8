@@ -12,10 +12,29 @@ class BerandaController extends Controller
     public function index(){
               
         $categories = Category::latest()->orderBy('name','asc')->get();
-        // $buku = Book::paginate(8);
         $buku = Book::with(['author','category'])->latest()->paginate(12);
         return view('beranda',compact('buku','categories'));
+        // return view('search');
     }
+
+
+    public function loadData(Request $request)
+    {
+    	// if ($request->has('q')) {
+        //     $cari = $request->get('q');
+    	// 	$data = Book::select('id', 'judul')->where('judul', 'LIKE', '%'. $cari. '%')->get();
+    	// 	return response()->json($data);
+    	// }
+
+        
+        $search = $request->get('term');
+    
+        $result = Book::select('judul', 'keterangan')->where('judul', 'LIKE', '%'. $search. '%')->get();
+
+        return response()->json($result);
+    }
+
+    
 
     public function buku(Request $request){
               
