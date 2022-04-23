@@ -13,7 +13,6 @@ use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,32 +35,32 @@ Route::get('/categories/{category:slug}', [CategoryController::class,'show'])->n
 
 Route::post('/buku/pinjam/{id}', [BerandaController::class,'pinjam'])->name('buku.pinjam')->middleware('auth:sanctum');
 
-Route::resource('movies',MoviesController::class);
-Route::resource('actors',ActorsController::class);
-Route::get('/actors/page/{page?}',[ActorsController::class,'index']);
+Route::resource('movies', MoviesController::class);
+Route::resource('actors', ActorsController::class);
+Route::get('/actors/page/{page?}', [ActorsController::class,'index']);
 
 
 
 
-Route::group(['prefix' => 'admin','middleware' => ['role:admin']] , function(){
+Route::group(['prefix' => 'admin','middleware' => ['role:admin']], function () {
     Route::get('/', [Beranda::class,'index'])->name('beranda');
-    Route::get('penulis',[PenulisController::class,'index'])->name('penulis.index');
-    Route::get('penulis/create',[PenulisController::class,'create'])->name('penulis.create');
-    Route::get('penulis/{penuli:slug}/edit',[PenulisController::class,'edit'])->name('penulis.edit');
-    Route::patch('penulis/{penuli:slug}/update',[PenulisController::class,'update'])->name('penulis.update');
-    Route::delete('penulis/{penuli:slug}/destroy',[PenulisController::class,'destroy'])->name('penulis.destroy');
+    Route::get('penulis', [PenulisController::class,'index'])->name('penulis.index');
+    Route::get('penulis/create', [PenulisController::class,'create'])->name('penulis.create');
+    Route::get('penulis/{penuli:slug}/edit', [PenulisController::class,'edit'])->name('penulis.edit');
+    Route::patch('penulis/{penuli:slug}/update', [PenulisController::class,'update'])->name('penulis.update');
+    Route::delete('penulis/{penuli:slug}/destroy', [PenulisController::class,'destroy'])->name('penulis.destroy');
     // Route::resource('penulis', PenulisController::class);
     Route::resource('buku', BooksController::class);
     Route::get('penulis/data', [Datacontroller::class,'penulis'])->name('penulis.data');
 
-    Route::get('daftarpinjam',[Beranda::class,'daftar_pinjam'])->name('daftarpinjam');
-    Route::get('listpinjam',[Beranda::class,'list_pinjam'])->name('listpinjam');
-    Route::get('history_borrow',[Beranda::class,'history_borrow'])->name('history');
-    Route::get('history_user',[Beranda::class,'history_user'])->name('history_user');
-    Route::patch('returnBook/{id}',[Beranda::class,'returnBook'])->name('returnBook');
+    Route::get('daftarpinjam', [Beranda::class,'daftar_pinjam'])->name('daftarpinjam');
+    Route::get('listpinjam', [Beranda::class,'list_pinjam'])->name('listpinjam');
+    Route::get('history_borrow', [Beranda::class,'history_borrow'])->name('history');
+    Route::get('history_user', [Beranda::class,'history_user'])->name('history_user');
+    Route::patch('returnBook/{id}', [Beranda::class,'returnBook'])->name('returnBook');
 
-    Route::get('absensi',[AbsensiController::class,'index'])->name('absensi');
-    Route::post('absensi',[AbsensiController::class,'store'])->name('attendance');
+    Route::get('absensi', [AbsensiController::class,'index'])->name('absensi');
+    Route::post('absensi', [AbsensiController::class,'store'])->name('attendance');
     // Route::resource('absensi', AbsensiController::class);
 });
 

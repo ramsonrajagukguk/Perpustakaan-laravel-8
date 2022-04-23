@@ -154,45 +154,51 @@
                         </div>
                     </div>
                     <div class="card-body p-3">
-                        <div class="mega-grid">
-                            <div class="row justify-content-center">
-                                @foreach ($buku as $item)
-                                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-4 mt-4 mb-5 infscroll-item">
-                                        <div class="card card-plain">
-                                            <div class="position-relative">
-                                                <a href="{{ route('buku', $item) }}"
-                                                    class="d-block shadow-xl border-radius-xl">
-                                                    <img src="{{ Storage::url($item->cover) }}" alt="img-blur-shadow"
-                                                        class="img-thumbnail shadow border-radius-xl">
-                                                </a>
-                                            </div>
-                                            <div class="card-body px-1 pb-0">
-                                                <a href="{{ route('buku', $item) }}">
-                                                    <h6>{{ Str::limit($item->judul, 30) }}</h6>
-                                                </a>
-                                                <p class="text-gradient text-dark mb-2 text-sm">
-                                                    {{ Str::limit($item->keterangan, 50) }}</p>
-                                                <div class="d-flex align-items-center justify-content-between">
-                                                    <form action="{{ route('buku.pinjam', $item) }}" method="POST">
-                                                        @csrf
-                                                        <button type="Submit"
-                                                            class="btn btn-outline-primary btn-sm mb-0">Pinjam
-                                                            Buku</button>
-                                                    </form>
-                                                </div>
+                        <div class="cards">
+                            @foreach ($buku as $item)
+                                <div class="card-item infscroll-item">
+                                    <div class="card card-plain">
+                                        <div class="position-relative">
+                                            <a href="{{ route('buku', $item) }}"
+                                                class="d-block shadow-xl border-radius-xl">
+                                                <img src="{{ Storage::url($item->cover) }}" alt="img-blur-shadow"
+                                                    class="img-thumbnail shadow border-radius-xl">
+                                            </a>
+                                        </div>
+                                        <div class="card-body px-1 pb-0">
+                                            <a href="{{ route('buku', $item) }}">
+                                                <h6>{{ Str::limit($item->judul, 30) }}</h6>
+                                            </a>
+                                            <p class="text-gradient text-dark mb-2 text-sm">
+                                                {{ Str::limit($item->keterangan, 50) }}</p>
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <form action="{{ route('buku.pinjam', $item) }}" method="POST">
+                                                    @csrf
+                                                    <button type="Submit"
+                                                        class="btn btn-outline-primary btn-sm mb-0">Pinjam
+                                                        Buku</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
-                                @endforeach
-                            </div>
+                                </div>
+                            @endforeach
                         </div>
-                        {{-- <a class="pagination__next" href="?page=2"></a> --}}
+                        <!-- status is at bottom of scroll -->
+                        <div class="page-load-status">
+                            <div class="infinite-scroll-request spinner-border" role="status">
+                                <p class="sr-only">Loading...</p>
+                            </div>
+                            <p class="infinite-scroll-last">End of content</p>
+                            <p class="infinite-scroll-error">No more pages to load</p>
+                        </div>
+                        <a class="pagination__next" href="?page=2"></a>
 
-                        <div class="row">
+                        {{-- <div class="row">
                             <div class="col-xl-2 col-md-6 mb-xl-0  mt-4 mb-5">
                                 {{ $buku->links() }}
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
 
                 </div>
@@ -264,10 +270,11 @@
 
 
     <script>
-        $('.mega-grid').infiniteScroll({
+        $('.cards').infiniteScroll({
             // options
             path: '.pagination__next',
             append: '.infscroll-item ',
+            status: '.page-load-status',
             history: false,
         });
     </script>
